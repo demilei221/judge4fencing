@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
-import 'LearnScreen.dart';
+import 'Route.dart';
 
 void main() {
   runApp(new MaterialApp(
@@ -18,9 +18,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return new SplashScreen(
       seconds: 5,
-      navigateAfterSeconds: new LearnPage(title: "Learn"),
+      navigateAfterSeconds: new RoutePage(),
       title: new Text(
-        'Welcome In SplashScreen',
+        'Judge4Fencing',
         style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
       ),
       image: new Image.network(

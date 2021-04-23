@@ -1,28 +1,17 @@
 import 'package:flutter/material.dart';
+import 'AIResult.dart';
+import 'package:flutter/cupertino.dart';
 
-class LearnPage extends StatefulWidget {
-  LearnPage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+class AIPage extends StatefulWidget {
+  AIPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _LearnPageState createState() => _LearnPageState();
+  _AIPageState createState() => _AIPageState();
 }
 
-class _LearnPageState extends State<LearnPage> {
-  final List<String> entries = <String>['A', 'B', 'C'];
-  // final List<int> colorCodes = <int>[600, 500, 100];
-
-
+class _AIPageState extends State<AIPage> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -32,12 +21,28 @@ class _LearnPageState extends State<LearnPage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Text('Upload Video'),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => AIResultPage(
+                                title: 'Result',
+                              )));
+                },
+                child: Text('Analize'))
+          ],
         ),
-        body: Text("judge"),
+      ),
     );
   }
 }
