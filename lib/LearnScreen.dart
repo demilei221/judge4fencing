@@ -22,32 +22,35 @@ class _LearnPageState extends State<LearnPage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: ListView.separated(
-          padding: const EdgeInsets.all(8),
-          itemCount: entries.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              height: 50,
-              color: Colors.amber[300],
-              child: Center(
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.amber[300], // background
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (context) => RuleDescriptionPage(
-                                      title: entries[index],
-                                      rule: rules[index],
-                                    )));
-                      },
-                      child: Text(' ${entries[index]}'))),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) =>
-              const Divider(),
+        body: Padding(
+          padding: EdgeInsets.all(20),
+
+          child: ListView.separated(
+            padding: const EdgeInsets.all(8),
+            itemCount: entries.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Center(
+                  child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.amber[300], // background
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => RuleDescriptionPage(
+                                    title: entries[index],
+                                    rule: rules[index],
+                                  )));
+                    },
+                    child: Text(' ${entries[index]}')),
+              ));
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
+          ),
         ) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }

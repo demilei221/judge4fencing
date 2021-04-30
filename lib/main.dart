@@ -17,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return new SplashScreen(
-      seconds: 5,
+      seconds: 10,
       navigateAfterSeconds: new RoutePage(),
       title: new Text(
         'Judge4Fencing',
