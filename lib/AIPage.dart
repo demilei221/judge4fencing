@@ -21,7 +21,7 @@ class AIPage extends StatefulWidget {
 class _AIPageState extends State<AIPage> {
   bool isVideo = false;
   VideoPlayerController _controller = null;
-  PickedFile file;
+  PickedFile _file;
 
   final ImagePicker _picker = ImagePicker();
 
@@ -39,14 +39,15 @@ class _AIPageState extends State<AIPage> {
       setState(() {
         isVideo = true;
         _controller = controller;
+
       });
     }
   }
 
   void _onImageButtonPressed(ImageSource source, {BuildContext context}) async {
-    file = await _picker.getVideo(
+    _file = await _picker.getVideo(
         source: source, maxDuration: const Duration(seconds: 10));
-    await _setVideoController(file);
+    await _setVideoController(_file);
   }
 
   @override
@@ -76,7 +77,7 @@ class _AIPageState extends State<AIPage> {
                               context,
                               CupertinoPageRoute(
                                   builder: (context) => AIResultPage(
-                                        title: 'Result',
+                                        title: 'Result',videoFile: _file,
                                       )));
                         },
                         child: Text('Analize',style: TextStyle(fontSize: 30),)),
