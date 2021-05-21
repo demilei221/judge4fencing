@@ -23,10 +23,11 @@ class _MyAppState extends State<MyApp> {
         'Judge4Fencing',
         style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
       ),
-      image: new Image.network(
-          'https://flutter.io/images/catalog-widget-placeholder.png'),
+      image: new Image.asset(
+          'asset/fencing.png',),
       backgroundColor: Colors.white,
       loaderColor: Colors.red,
+      photoSize: 60.0,
     );
   }
 }

@@ -23,7 +23,7 @@ class AIResultPage extends StatefulWidget {
 class _AIResultPageState extends State<AIResultPage> {
   ScrollController _scrollController = ScrollController();
   ScrollController _scrollVideoController = ScrollController();
-  Map rule = Rules.rule1;
+  Map rule = {};
 
   @override
   void initState() {
@@ -32,8 +32,15 @@ class _AIResultPageState extends State<AIResultPage> {
   }
 
   void uploadFileToServer() async {
+    var res = await http.get(Uri.parse('https://cmdatabase-85466-default-rtdb.firebaseio.com/Demi/Address.json'));
+    print('reponse: ' + res.body);
+      // var resObj = jsonDecode(res.body);
+      // print('resObj'+ resObj.toString());
+
+    var resObj = jsonDecode(res.body).toString();
+    print('resObj'+ resObj.toString());
     http.MultipartRequest request = http.MultipartRequest(
-        'POST', Uri.parse('http://428270503f39.ngrok.io/uploader'));
+        'POST', Uri.parse('$resObj/uploader'));
 
     request.files.add(
       await http.MultipartFile.fromPath(
@@ -45,14 +52,21 @@ class _AIResultPageState extends State<AIResultPage> {
 
     http.StreamedResponse r = await request.send();
     print(r.statusCode);
-    print(await r.stream.transform(utf8.decoder).join());
+    Map result = json.decode(await r.stream.transform(utf8.decoder).join());
+    setState(() {
+      getRule(result['technique']);
+      rule['point'] = result['point'];
+    });
   }
 
   getRule(String technique) {
+    print("-"+technique +"-"+ "-"+Rules.rule3['technique']+"-");
+    print(technique == Rules.rule3['technique'].toString());
     if (technique == Rules.rule1['technique'])
       rule = Rules.rule1;
     else if (technique == Rules.rule2['technique']) rule = Rules.rule2;
     if (technique == Rules.rule3['technique']) rule = Rules.rule3;
+
   }
 
   play_video(url) {
@@ -81,15 +95,16 @@ class _AIResultPageState extends State<AIResultPage> {
           controller: _scrollController,
           child: SingleChildScrollView(
             controller: _scrollController,
-            child: Column(
+            child:
+            rule.isNotEmpty ?Column(
               children: [
-                Card(
+                 Card(
                     child: ListTile(
                   title: Text(
                     'Technique: ' + rule['technique'],
                     style: TextStyle(fontSize: 20),
                   ),
-                  subtitle: Text('\nDescription: ' + rule['description'],
+                  subtitle: Text('\nPoint:' + rule['point'] +'\n\nDescription: ' + rule['description'],
                       style: TextStyle(fontSize: 20)),
                 )),
                 Padding(
@@ -105,7 +120,6 @@ class _AIResultPageState extends State<AIResultPage> {
                       // padding: const EdgeInsets.all(8),
                       itemCount: rule['video'].length,
                       itemBuilder: (BuildContext context, int index) {
-                        print(index);
                         return play_video(rule['video'][index]);
                       },
                       separatorBuilder: (BuildContext context, int index) =>
@@ -114,6 +128,9 @@ class _AIResultPageState extends State<AIResultPage> {
                   ),
                 )
               ],
+            ):Padding(
+              padding: const EdgeInsets.only(top:50.0),
+              child: Center(child:CircularProgressIndicator()),
             ),
           ),
         ),

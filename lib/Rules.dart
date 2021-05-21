@@ -3,7 +3,7 @@ class Rules {
     'description':
         'The person has the right of way if he or she shows the judge the intention to attack earlier. This can be extending the arm or kicking the front leg earlier, or acting more decisive (no pausing in the action)',
     'video': ['https://demilei221.github.io/fencingVideos/test-6.mp4','https://demilei221.github.io/fencingVideos/test-7.mp4','https://demilei221.github.io/fencingVideos/test-8.mp4','https://demilei221.github.io/fencingVideos/test-9.mp4'],
-    'technique': 'Attack '
+    'technique': 'Attack'
   };
   static final rule2 = {
     'description':
